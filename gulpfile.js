@@ -104,6 +104,6 @@ gulp.task("build", (callback) => {
 
 
 // Clear cache
-gulp.task('cache:clear', (callback) => {
+gulp.task("clear:cache", (callback) => {
   return cache.clearAll(callback)
 })
