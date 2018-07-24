@@ -1,7 +1,7 @@
 {
   "name": "gulp_template",
   "version": "1.0.0",
-  "description": "Template for gulp tasks",
+  "description": "Template for gulp tasks.",
   "main": "index.js",
   "scripts": {},
   "keywords": [],
