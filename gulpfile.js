@@ -7,12 +7,12 @@ const browserSync = require("browser-sync").create()
 
 gulp.task("browserSync", () => {
 
-  browserSync.init({
-    server: {
-      baseDir: "dev"
-    },
-    browser: "google chrome"
-  })
+   browserSync.init({
+      server: {
+         baseDir: "dev"
+      },
+      browser: "google chrome"
+   })
 
 })
 
@@ -22,13 +22,13 @@ const sass = require("gulp-sass")
 
 gulp.task("sass", () => {
 
-  return gulp.src("dev/sass/*.+(scss|sass)")
-    .pipe(sass())
-    .pipe(gulp.dest("dev/css/"))
-    // Enable Browser-sync
-    .pipe(browserSync.reload({
-      stream: true
-    }))
+   return gulp.src("dev/sass/**/*.+(scss|sass)")
+      .pipe(sass())
+      .pipe(gulp.dest("dev/css/"))
+      // Enable Browser-sync
+      .pipe(browserSync.reload({
+         stream: true
+      }))
 
 })
 
@@ -43,12 +43,19 @@ const imageminMozjpeg = require('imagemin-mozjpeg')
 gulp.task("images", () => {
   
   return gulp.src("dev/**/*.+(png|jpg|gif|svg)")
-    .pipe(cache(imagemin(
-      [imageminMozjpeg()],
-      {verbose: true}
-    )))
-    .pipe(gulp.dest("dist/"))
+      .pipe(cache(imagemin(
+         [imageminMozjpeg()],
+         {verbose: true}
+      )))
+      .pipe(gulp.dest("dist/"))
 
+})
+
+
+// Fonts
+gulp.task('fonts', () => {
+   return gulp.src("dev/fonts/**/*")
+      .pipe(gulp.dest("dist/fonts/"))
 })
 
 
@@ -64,10 +71,10 @@ const lazyPipe = require("lazypipe")
 gulp.task("useref", () => {
 
   return gulp.src("dev/*.html")
-    .pipe(useref())
-    .pipe(gulpIf("*.js", lazyPipe().pipe(babel, {presets: ["env"]}).pipe(uglify)()))
-    .pipe(gulpIf("*.css", lazyPipe().pipe(autoprefixer).pipe(cleanCss)()))
-    .pipe(gulp.dest("dist/"))
+      .pipe(useref())
+      .pipe(gulpIf("*.js", lazyPipe().pipe(babel, {presets: ["env"]}).pipe(uglify)()))
+      .pipe(gulpIf("*.css", lazyPipe().pipe(autoprefixer).pipe(cleanCss)()))
+      .pipe(gulp.dest("dist/"))
 
 })
 
@@ -76,34 +83,31 @@ gulp.task("useref", () => {
 const del = require("del")
 
 gulp.task("clean:dist", () => {
-  return del.sync("dist")
+   return del.sync("dist")
 })
 
 
 // ---------------------------
 
-
 // Local dev server
 gulp.task("watch", ["browserSync", "sass"], () => {
-  
-  gulp.watch("dev/sass/*.+(scss|sass)", ["sass"])
-  gulp.watch("dev/*.html", browserSync.reload)
-  gulp.watch("dev/js/**/*.js", browserSync.reload)
+   gulp.watch("dev/sass/**/*.+(scss|sass)", ["sass"]);
+   gulp.watch("dev/*.html", browserSync.reload);
+   gulp.watch("dev/js/**/*.js", browserSync.reload);
+});
 
-})
-
-gulp.task("watch", (callback) => {
-  runSequence(["sass", "browserSync"], "watch", callback)
+gulp.task("default", (callback) => {
+   runSequence(["sass", "browserSync", "watch"], callback)
 })
 
 
 // Build script
 gulp.task("build", (callback) => {
-  runSequence("clean:dist", ["sass", "useref", "images"], callback)
+   runSequence("clean:dist", ["sass", "useref", "images", "fonts"], callback)
 })
 
 
 // Clear cache
 gulp.task("clear:cache", (callback) => {
-  return cache.clearAll(callback)
+   return cache.clearAll(callback)
 })

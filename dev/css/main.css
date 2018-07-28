@@ -1,0 +1,21 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+html {
+  font-size: 10px; }
+
+body {
+  box-sizing: border-box;
+  background-color: ivory; }
+
+@font-face {
+  font-family: "Lalezar-Regular";
+  src: url("../fonts/Lalezar-Regular.otf") format("opentype"); }
+
+body {
+  font-family: "Lalezar-Regular", sans-serif;
+  color: firebrick; }
