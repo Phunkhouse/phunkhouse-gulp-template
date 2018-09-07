@@ -1,0 +1,226 @@
+// MAP OF BREAKPOINTS
+$breakpoints: (
+   phone-sm: 25em, //400px
+   phone-lg: 37.5em, //600px
+   tablet: 56.25em, //900px
+   desktop-sm: 75em, //1200px
+   desktop-lg: 100em, //1600px
+   desktop-xl: 125em, //2000px
+   desktop-xxl: 218.75em //3500px
+);
+
+
+// DEFAULT MIXIN FOR MIN-WIDTH VALUE, ORIENTATION OR DPI
+@mixin mq($mq-breakpoint, $mq-breakpoints: $breakpoints) {
+  $mq-media-query: "screen and";
+  
+   // Check if the value is landscape or portrait
+   @if $mq-breakpoint == landscape or $mq-breakpoint == portrait {
+      $mq-media-query: "#{$mq-media-query} (orientation: #{$mq-breakpoint})";
+   }
+
+   // Check for the retina (dpi) input
+   @else if $mq-breakpoint == retina {
+      $mq-media-query:  "#{$mq-media-query} (-webkit-min-device-pixel-ratio: 2)," +
+                        "#{$mq-media-query} (min-resolution: 2dppx)";
+   }
+
+   // Check the map or custom pixel value of the breakpoint
+   @else {
+
+      // Check the map value
+      @if map-has-key($mq-breakpoints, $mq-breakpoint) {
+         $mq-breakpoint: map-get($mq-breakpoints, $mq-breakpoint);
+      }
+
+      // Check the custom value
+      $mq-media-query: "#{$mq-media-query} (min-width: #{$mq-breakpoint})";
+   }
+   
+   @media #{$mq-media-query} {
+      @content;
+   }
+}
+
+
+// SPECIAL MIXIN FOR MAX-WIDTH (DESKTOP FIRST APPROACH)
+@mixin mq-below($mq-breakpoint, $mq-breakpoints: $breakpoints) {
+
+   // Check the map or custom pixel value of the breakpoint
+   @if map-has-key($mq-breakpoints, $mq-breakpoint) {
+      $mq-breakpoint: map-get($mq-breakpoints, $mq-breakpoint);
+   }
+   
+   @media screen and (max-width: #{$mq-breakpoint}) {
+      @content;
+   }
+}
+
+
+// SPECIAL MIXIN FOR WIDTH RANGE
+@mixin mq-between($mq-upper, $mq-lower) {
+
+   // If both the lower and upper breakpoints exist in the map.
+   @if map-has-key($breakpoints, $mq-lower) and map-has-key($breakpoints, $mq-upper) {
+
+      // Get the lower and upper breakpoints.
+      $lower-breakpoint: map-get($breakpoints, $mq-lower);
+      $upper-breakpoint: map-get($breakpoints, $mq-upper);
+
+      // Write the media query.
+      @media screen and (min-width: #{$lower-breakpoint}) and (max-width: #{$upper-breakpoint}) {
+         @content;
+      }
+      
+   } @else {
+
+      // Write breakpoint manually.
+      @media screen and (min-width: #{$mq-lower}) and (max-width: #{$mq-upper}) {
+         @content;
+      }
+   }
+}
+
+
+// SPECIAL MIXIN WITH DPI AND MIN-WIDTH (RESPONSIVE IMAGES ETC.)
+@mixin mq-retina($breakpoint) {
+
+   // Check if the upper breakpoints exist in the map.
+   @if map-has-key($breakpoints, $breakpoint) {
+
+      // Get the upper breakpoint.
+      $lower-breakpoint: map-get($breakpoints, $breakpoint);
+
+      // Write the media query.
+      @media
+      only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: #{$lower-breakpoint}),
+      only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: #{$lower-breakpoint}),
+      only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: #{$lower-breakpoint}),
+      only screen and (        min-device-pixel-ratio: 2)      and (min-width: #{$lower-breakpoint}),
+      only screen and (                min-resolution: 192dpi) and (min-width: #{$lower-breakpoint}),
+      only screen and (                min-resolution: 2dppx)  and (min-width: #{$lower-breakpoint})  
+         {
+            @content;
+         }
+      
+   } @else {
+
+      // Write breakpoint manually.
+      @media
+      only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: #{$breakpoint}),
+      only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: #{$breakpoint}),
+      only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: #{$breakpoint}),
+      only screen and (        min-device-pixel-ratio: 2)      and (min-width: #{$breakpoint}),
+      only screen and (                min-resolution: 192dpi) and (min-width: #{$breakpoint}),
+      only screen and (                min-resolution: 2dppx)  and (min-width: #{$breakpoint})  
+         {
+            @content;
+         }
+   }
+}
+
+// SPECIAL MIXIN FOR HI-RES TOUCH DEVICES
+@mixin mq-touch($breakpoint) {
+
+   // Check if the upper breakpoints exist in the map.
+   @if map-has-key($breakpoints, $breakpoint) {
+
+      // Get the upper breakpoint.
+      $lower-breakpoint: map-get($breakpoints, $breakpoint);
+
+      // Write the media query.
+      @media
+      only screen and (pointer: coarse) and (min-width: #{$lower-breakpoint}) 
+         {
+            @content;
+         }
+      
+   } @else {
+
+      // Write breakpoint manually.
+      @media
+      only screen and (pointer: coarse) and (min-width: #{$breakpoint})
+         {
+            @content;
+         }
+   }
+}
+
+
+// SPECIAL MIXIN FOR MOBILE LANDSCAPE DEVICES
+@mixin mq-below-landscape($breakpoint) {
+
+   // Check if the upper breakpoints exist in the map.
+   @if map-has-key($breakpoints, $breakpoint) {
+
+      // Get the upper breakpoint.
+      $upper-breakpoint: map-get($breakpoints, $breakpoint);
+
+      // Write the media query.
+      @media screen and (max-width: #{$upper-breakpoint}) and (orientation: landscape) {
+         @content;
+      }
+      
+   } @else {
+
+      // Write breakpoint manually.
+      @media screen and (max-width: #{$breakpoint}) and (orientation: landscape) {
+         @content;
+      }
+   }
+}
+
+
+// FEATURE QUERIES
+
+
+// TARGET SAFARI
+@mixin safari() {
+   @media not all and (min-resolution:.001dpcm) {
+      @content;
+   }
+}
+
+// TARGET CHROME
+@mixin chrome() {
+   @media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+      @content;
+   }
+}
+
+// TARGET IE10 & IE11
+@mixin ie1011() {
+   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      @content;
+   }
+}
+
+// EXCLUDE IE10 & IE11
+@mixin notIe1011() {
+   @media not all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      @content;
+   }
+}
+
+// TARGET CHROME WITH BREAKPOINTS
+@mixin mq-chrome($breakpoint) {
+
+   // Check if the upper breakpoints exist in the map.
+   @if map-has-key($breakpoints, $breakpoint) {
+
+      // Get the upper breakpoint.
+      $lower-breakpoint: map-get($breakpoints, $breakpoint);
+
+      // Write the media query.
+      @media screen and (min-width: #{$lower-breakpoint}) and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+         @content;
+      }
+      
+   } @else {
+
+      // Write breakpoint manually.
+      @media screen and (min-width: #{$breakpoint}) and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+         @content;
+      }
+   }
+}
