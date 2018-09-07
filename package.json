@@ -1,37 +1,38 @@
 {
-  "name": "gulp_template",
-  "version": "1.0.0",
-  "description": "Template for gulp tasks.",
-  "main": "index.js",
-  "scripts": {},
-  "keywords": [],
-  "author": "David Krapka",
-  "license": "ISC",
-  "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0",
-    "browser-sync": "^2.24.6",
-    "del": "^3.0.0",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^5.0.0",
-    "gulp-babel": "^7.0.1",
-    "gulp-cache": "^1.0.2",
-    "gulp-clean-css": "^3.9.4",
-    "gulp-if": "^2.0.2",
-    "gulp-imagemin": "^4.1.0",
-    "gulp-sass": "^4.0.1",
-    "gulp-uglify": "^3.0.0",
-    "gulp-useref": "^3.1.5",
-    "imagemin-mozjpeg": "^7.0.0",
-    "lazypipe": "^1.0.1",
-    "run-sequence": "^2.2.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Phunkhouse/phunkhouse-gulp-template.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Phunkhouse/phunkhouse-gulp-template/issues"
-  },
-  "homepage": "https://github.com/Phunkhouse/phunkhouse-gulp-template#readme"
-}
+   "name": "gulp_template",
+   "version": "1.0.0",
+   "description": "Template for gulp tasks.",
+   "main": "index.js",
+   "scripts": {},
+   "keywords": [],
+   "author": "David Krapka",
+   "license": "ISC",
+   "devDependencies": {
+      "babel-core": "^6.26.3",
+      "babel-preset-env": "^1.7.0",
+      "browser-sync": "^2.24.7",
+      "del": "^3.0.0",
+      "gulp": "^3.9.1",
+      "gulp-autoprefixer": "^6.0.0",
+      "gulp-babel": "^8.0.0",
+      "gulp-cache": "^1.0.2",
+      "gulp-clean-css": "^3.10.0",
+      "gulp-htmlmin": "^4.0.0",
+      "gulp-if": "^2.0.2",
+      "gulp-imagemin": "^4.1.0",
+      "gulp-sass": "^4.0.1",
+      "gulp-uglify": "^3.0.0",
+      "gulp-useref": "^3.1.5",
+      "imagemin-mozjpeg": "^7.0.0",
+      "lazypipe": "^1.0.1",
+      "run-sequence": "^2.2.1"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Phunkhouse/phunkhouse-gulp-template.git"
+   },
+   "bugs": {
+      "url": "https://github.com/Phunkhouse/phunkhouse-gulp-template/issues"
+   },
+   "homepage": "https://github.com/Phunkhouse/phunkhouse-gulp-template#readme"
+   }

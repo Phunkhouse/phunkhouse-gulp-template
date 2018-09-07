@@ -11,7 +11,7 @@ gulp.task("browserSync", () => {
       server: {
          baseDir: "dev"
       },
-      browser: "google chrome"
+      loglevel: "debug"
    })
 
 })
@@ -42,7 +42,7 @@ const imageminMozjpeg = require('imagemin-mozjpeg')
 
 gulp.task("images", () => {
   
-  return gulp.src("dev/**/*.+(png|jpg|gif|svg)")
+   return gulp.src("dev/**/*.+(png|jpg|gif|svg|webp)")
       .pipe(cache(imagemin(
          [imageminMozjpeg()],
          {verbose: true}
@@ -59,6 +59,16 @@ gulp.task('fonts', () => {
 })
 
 
+// Other files just for put through
+gulp.task("others", () => {
+   return gulp.src([
+      "dev/*.+(xml|webmanifest|txt)",
+      "dev/.htaccess"
+   ])
+      .pipe(gulp.dest("dist/"))
+})
+
+
 // Bundling CSS and JS files (minify, babel, autoprefixer)
 const useref = require("gulp-useref")
 const gulpIf = require("gulp-if")
@@ -66,6 +76,7 @@ const uglify = require("gulp-uglify")
 const cleanCss = require("gulp-clean-css")
 const autoprefixer = require("gulp-autoprefixer")
 const babel = require("gulp-babel")
+const htmlmin = require("gulp-htmlmin")
 const lazyPipe = require("lazypipe")
 
 gulp.task("useref", () => {
@@ -74,6 +85,7 @@ gulp.task("useref", () => {
       .pipe(useref())
       .pipe(gulpIf("*.js", lazyPipe().pipe(babel, {presets: ["env"]}).pipe(uglify)()))
       .pipe(gulpIf("*.css", lazyPipe().pipe(autoprefixer).pipe(cleanCss)()))
+      .pipe(gulpIf("*.html", htmlmin({ collapseWhitespace: true, ignoreCustomComments: [/^!/], minifyJS: true })))
       .pipe(gulp.dest("dist/"))
 
 })
@@ -103,7 +115,7 @@ gulp.task("default", (callback) => {
 
 // Build script
 gulp.task("build", (callback) => {
-   runSequence("clean:dist", ["sass", "useref", "images", "fonts"], callback)
+   runSequence("clean:dist", ["sass", "useref", "images", "fonts", "others"], callback)
 })
 
 
