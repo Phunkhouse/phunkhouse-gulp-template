@@ -1,39 +1,30 @@
 {
-   "name": "gulp_template",
-   "version": "1.0.0",
-   "description": "Template for gulp tasks.",
+   "name": "gulp_template_by_phunkhouse",
+   "version": "2.0.0",
+   "description": "Gulp template for personal use.",
    "main": "index.js",
    "scripts": {},
    "keywords": [],
    "author": "David Krapka",
    "license": "ISC",
    "devDependencies": {
-      "@babel/core": "^7.0.0",
-      "@babel/preset-env": "^7.0.0",
-      "browser-sync": "^2.24.7",
-      "del": "^3.0.0",
-      "gulp": "^3.9.1",
-      "gulp-autoprefixer": "^6.0.0",
+      "@babel/core": "^7.4.5",
+      "@babel/preset-env": "^7.4.5",
+      "browser-sync": "^2.26.7",
+      "gulp": "^4.0.2",
+      "gulp-autoprefixer": "^6.1.0",
       "gulp-babel": "^8.0.0",
-      "gulp-cache": "^1.0.2",
-      "gulp-clean-css": "^3.10.0",
-      "gulp-htmlmin": "^4.0.0",
+      "gulp-cache": "^1.1.2",
+      "gulp-clean": "^0.4.0",
+      "gulp-clean-css": "^4.2.0",
+      "gulp-htmlmin": "^5.0.1",
       "gulp-if": "^2.0.2",
-      "gulp-imagemin": "^4.1.0",
-      "gulp-sass": "^4.0.1",
-      "gulp-uglify": "^3.0.0",
-      "gulp-useref": "^3.1.5",
-      "imagemin-mozjpeg": "^7.0.0",
-      "lazypipe": "^1.0.1",
-      "lodash": "^4.17.10",
-      "run-sequence": "^2.2.1"
-   },
-   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/Phunkhouse/phunkhouse-gulp-template.git"
-   },
-   "bugs": {
-      "url": "https://github.com/Phunkhouse/phunkhouse-gulp-template/issues"
-   },
-   "homepage": "https://github.com/Phunkhouse/phunkhouse-gulp-template#readme"
+      "gulp-imagemin": "^6.0.0",
+      "gulp-sass": "^4.0.2",
+      "gulp-uglify": "^3.0.2",
+      "gulp-useref": "^3.1.6",
+      "imagemin-mozjpeg": "^8.0.0",
+      "lazypipe": "^1.0.2",
+      "node-sass": "^4.12.0"
+   }
 }
