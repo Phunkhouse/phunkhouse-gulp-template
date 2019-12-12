@@ -27,8 +27,5 @@
       "imagemin-mozjpeg": "^8.0.0",
       "lazypipe": "^1.0.2",
       "node-sass": "^4.13.0"
-   },
-   "dependencies": {
-      "npm-update-all": "^1.0.1"
    }
 }
